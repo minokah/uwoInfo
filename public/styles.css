@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans', sans-serif !important;
+}
+
+html, body {
+    height: auto;
+    min-height: 100vh;
+    background-attachment: fixed;
+}
+
+.purple {
+    background: linear-gradient(0deg, rgba(79,45,130,1) 0%, rgba(116,45,130,1) 100%);
+}
+
+.container-margin {
+    margin-top: 30px;
+}
+
+.card-cover {
+    padding: 0 !important;
+}
+
+.inline {
+    display: inline-block;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+}
+
+
+tr, th {
+    text-align: left;
+}
+
+#navSearchbar {
+    position: relative;
+    top: -30px;
+}
+
+#navSignupLoginButton {
+    display: none;
+}
+
+#navProfileContainer {
+    display: none;
+}
+
+#navProfileImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+
+.profileImage {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+}
+
+#homeSearchIcon {
+    position: relative;
+    top: 32px;
+    left: 13px;
+}
+
+#listSearchIcon {
+    position: relative;
+    top: -1px;
+    left: -10px;
+}
+
+#courseSearchText {
+    display: none;
+}
+
+#headerPrompt {
+    transition-duration: 0.5s;
+}
+
+.text-red {
+    color: red;
+}
+
+.width100 {
+    width: 100%;
+}

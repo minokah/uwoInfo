@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>uwoInfo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark px-5 purple">
+        <div class="container-fluid">
+            <a href="/" class="navbar-brand text-white pt-3">
+                <h2>uwoInfo</h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="courses">Courses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="modules">Modules</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active"><b>Course Information</b></a>
+                    </li>
+                </ul>
+                <div id="navSignupLoginButton">
+                    <button class="btn btn-primary d-block" data-bs-toggle="modal" data-bs-target="#accountModal">Log In
+                        or Sign Up</button>
+                </div>
+                <div id="navProfileContainer" class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="navProfileDropdown" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <img class="me-1" id="navProfileImage" src="https://minokah.github.io/images/icon.png">
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end"
+                        aria-labelledby="navProfileDropdown">
+                        <li>
+                            <h6 class="dropdown-header" id="navProfileName"></h6>
+                        </li>
+                        <li><a class="dropdown-item" href="profile">Profile</a></li>
+                        <li><a class="dropdown-item" id="navProfileLogout" href="">Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" id="courseContainer">
+        <br>
+        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+            aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="courses">Courses</a></li>
+                <li class="breadcrumb-item active" aria-current="page" id="courseBreadcrumb"></li>
+            </ol>
+        </nav>
+        <div id="courseInfo"></div>
+        <br>
+        <a type="button" class="btn btn-danger mb-4" target="_blank" id="courseOfficialPage">Official Course Page</a>
+        <h3>Reviews</h3>
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h3><span class="badge bg-success width100">😀 100% liked</span></h3>
+                        <b>Easy</b>
+                        <div class="progress mb-2">
+                            <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">25%</div>
+                        </div>
+                        <b>Useful</b>
+                        <div class="progress mb-2">
+                            <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25"
+                                aria-valuemin="0" aria-valuemax="100">25%</div>
+                        </div>
+                        <b>0 Rating(s)</b>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Your Review for <span id="reviewCardCourse">Course Name</span>
+                    </div>
+                    <div class="card-body">
+                        <div id="reviewMyReview">
+                            <div class="mb-4">
+                                <button class="btn btn-primary" id="reviewEditButton">Edit Review</button>
+                                <button type="button" class="btn btn-danger" id="reviewDeleteButton"
+                                    data-bs-toggle="modal" data-bs-target="#reviewDeleteModal">
+                                    Delete Review
+                                </button>
+                            </div>
+                        </div>
+                        <div id="reviewNotLoggedIn">
+                            <p>You need to be logged in to post a review. I wonder what this button does...</p>
+                            <button class="btn btn-primary d-block" data-bs-toggle="modal"
+                                data-bs-target="#accountModal">Log In
+                                or Sign Up</button>
+                        </div>
+                        <div id="reviewFormPrompt">
+                            <div>
+                                <h5><b>Want to leave a review?</b></h5>
+                                <p>Just click the button below and give your opinion!</p>
+                                <button class="btn btn-danger" id="reviewFormPromptButton">Create a Review</button>
+                            </div>
+                        </div>
+                        <div id="reviewForm">
+                            <h5><b>What did you think of this course?</b></h5>
+                            <p>Give your honest opinion (or not).</p>
+                            <ul class="text-red" id="reviewFormError"></ul>
+                            <textarea class="form-control" id="reviewDescription" rows="3"></textarea>
+                            <br>
+                            <b>😀 Liked</b>: How much did you like this course?
+                            <br>
+                            <div class="btn-group mt-2" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" name="reviewLikedButton" id="reviewLiked1"
+                                    autocomplete="off" checked>
+                                <label class="btn btn-outline-danger" for="reviewLiked1">1</label>
+                                <input type="radio" class="btn-check" name="reviewLikedButton" id="reviewLiked2"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-danger" for="reviewLiked2">2</label>
+                                <input type="radio" class="btn-check" name="reviewLikedButton" id="reviewLiked3"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-danger" for="reviewLiked3">3</label>
+                                <input type="radio" class="btn-check" name="reviewLikedButton" id="reviewLiked4"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-danger" for="reviewLiked4">4</label>
+                                <input type="radio" class="btn-check" name="reviewLikedButton" id="reviewLiked5"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-danger" for="reviewLiked5">5</label>
+                            </div>
+                            <br>
+                            <br>
+                            <b>📈 Easy</b>: How easy did you find it?
+                            <br>
+                            <div class="btn-group mt-2" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" name="reviewEasyButton" id="reviewEasy1"
+                                    autocomplete="off" checked>
+                                <label class="btn btn-outline-danger" for="reviewEasy1">1</label>
+                                <input type="radio" class="btn-check" name="reviewEasyButton" id="reviewEasy2"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-danger" for="reviewEasy2">2</label>
+                                <input type="radio" class="btn-check" name="reviewEasyButton" id="reviewEasy3"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-danger" for="reviewEasy3">3</label>
+                                <input type="radio" class="btn-check" name="reviewEasyButton" id="reviewEasy4"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-danger" for="reviewEasy4">4</label>
+                                <input type="radio" class="btn-check" name="reviewEasyButton" id="reviewEasy5"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-danger" for="reviewEasy5">5</label>
+                            </div>
+                            <br>
+                            <br>
+                            <b>📚 Useful</b>: How useful did you find it to be?
+                            <br>
+                            <div class="btn-group mt-2" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" name="reviewUsefulButton" id="reviewUseful1"
+                                    autocomplete="off" checked>
+                                <label class="btn btn-outline-danger" for="reviewUseful1">1</label>
+                                <input type="radio" class="btn-check" name="reviewUsefulButton" id="reviewUseful2"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-danger" for="reviewUseful2">2</label>
+                                <input type="radio" class="btn-check" name="reviewUsefulButton" id="reviewUseful3"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-danger" for="reviewUseful3">3</label>
+                                <input type="radio" class="btn-check" name="reviewUsefulButton" id="reviewUseful4"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-danger" for="reviewUseful4">4</label>
+                                <input type="radio" class="btn-check" name="reviewUsefulButton" id="reviewUseful5"
+                                    autocomplete="off">
+                                <label class="btn btn-outline-danger" for="reviewUseful5">5</label>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="form-check form-switch mt-2 mb-4">
+                                <input class="form-check-input" type="checkbox" role="switch" value=""
+                                    id="reviewPostAnonymous">
+                                <label class="form-check-label" for="reviewPostAnonymous">
+                                    Post as Anonymous (hides name and profile picture)
+                                </label>
+                            </div>
+                            <button class="btn btn-danger" id="reviewFormPost">Post Review</button>
+                            <p class="text-red" id="reviewFormFailure"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <ul class="list-group list-group-flush" id="reviewsListing"> </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="modal fade" id="reviewDeleteModal" tabindex="-1" aria-labelledby="reviewDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewDeleteModalLabel">Are you sure you want to remove your review?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    It'll be gone, forever. (This action is irreversable.)
+                </div>
+                <div class="modal-footer">
+                    <p class="text-red" id="reviewDeleteFailure"></p>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" id="reviewDeleteConfirmButton">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="accountLoginTab" data-bs-toggle="tab"
+                                data-bs-target="#accountLoginFrame" type="button" role="tab" aria-controls="nav-login"
+                                aria-selected="true">Log In</button>
+                            <button class="nav-link" id="accountSignupTab" data-bs-toggle="tab"
+                                data-bs-target="#accountSignupFrame" type="button" role="tab" aria-controls="nav-signup"
+                                aria-selected="false">Sign Up</button>
+                            <button class="nav-link" id="accountForgotTab" data-bs-toggle="tab"
+                                data-bs-target="#accountForgotFrame" type="button" role="tab" aria-controls="nav-forgot"
+                                aria-selected="false">I forgot my password!</button>
+                            <button class="btn-close ms-auto mt-2" type="button" data-bs-dismiss="modal"
+                                aria-label="Close" aria-selected="false"></button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="accountLoginFrame" role="tabpanel"
+                            aria-labelledby="accountLoginTab">
+                            <div class="mt-3 mx-2">
+                                <p>Welcome back!</p>
+                                <ul class="text-red" id="loginError"></ul>
+                                <form>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="loginUsername" placeholder="."
+                                            autocomplete="username">
+                                        <label for="loginUsername">Username</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="password" class="form-control" id="loginPassword" placeholder="."
+                                            autocomplete="password">
+                                        <label for="loginPassword">Password</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <p class="text-red" id="loginFailure"></p>
+                                <button type="button" class="btn btn-primary" id="loginButton">Log In</button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="accountSignupFrame" role="tabpanel"
+                            aria-labelledby="accountSignupTab">
+                            <div class="mt-3 mx-2">
+                                <p>Create a new account to post reviews.</p>
+                                <ul class="text-red" id="signupError"></ul>
+                                <form>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="signupUsername" placeholder="."
+                                            autocomplete="username">
+                                        <label for="signupUsername">Username</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="email" class="form-control" id="signupEmail" placeholder="."
+                                            autcomplete="email">
+                                        <label for="signupEmail">Email address</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="password" class="form-control" id="signupPassword" placeholder="."
+                                            autocomplete="password">
+                                        <label for="signupPassword">Password</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="password" class="form-control" id="signupPasswordConfirm"
+                                            placeholder=".">
+                                        <label for="signupPasswordConfirm">Confirm Password</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <p class="text-red" id="signupFailure"></p>
+                                <button type="button" class="btn btn-primary" id="signupButton">Sign Up</button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="accountForgotFrame" role="tabpanel"
+                            aria-labelledby="accountForgotTab">
+                            <div class="mt-3 mx-2">
+                                <p>We'll send you an email about resetting your password.</p>
+                                <form>
+                                    <div class="form-floating mb-3">
+                                        <input type="email" class="form-control" id="forgotEmail" placeholder="."
+                                            autocomplete="email">
+                                        <label for="forgotEmail">Email address</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary">Send Email</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="login.js"></script>
+    <script src="tagColours.js"></script>
+    <script src="info.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
